@@ -5,20 +5,11 @@ workflows:
       groups:
         - IOS
     scripts:
-           - name: Setup certificate
+      - name: Setup certificate
         script: |
           echo $CM_CERTIFICATE | base64 --decode > /tmp/cert.p12
           keychain initialize
-          keychain add-certificates \
-            --certificate /tmp/cert.p12 \
-            --certificate-password "" || \
-          keychain add-certificates \
-            --certificate /tmp/cert.p12 \
-            --certificate-password "password" || \
-          keychain add-certificates \
-            --certificate /tmp/cert.p12 \
-            --certificate-password "1234"
-
+          keychain add-certificates --certificate /tmp/cert.p12 --certificate-password "" || keychain add-certificates --certificate /tmp/cert.p12 --certificate-password "password"
       - name: Show provisioning profile
         script: |
           ls ~/Library/MobileDevice/Provisioning\ Profiles/
