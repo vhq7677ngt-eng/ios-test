@@ -2,9 +2,18 @@ workflows:
   ios-signing:
     name: iOS Signing
     environment:
-      ios_signing:
-        distribution_type: development
-        bundle_identifier: com.test.app
+      groups:
+        - ios
     scripts:
-      - name: Done
-        script: echo "Signing done"
+      - name: Setup certificate
+        script: |
+          echo $CM_CERTIFICATE | base64 --decode > /tmp/cert.p12
+          keychain initialize
+          keychain add-certificates \
+            --certificate /tmp/cert.p12 \
+            --certificate-password "$CM_CERTIFICATE_PASSWORD"
+      - name: Show provisioning profile
+        script: |
+          ls ~/Library/MobileDevice/Provisioning\ Profiles/
+    artifacts:
+      - ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision
