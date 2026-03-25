@@ -1,0 +1,10 @@
+workflows:
+  ios-signing:
+    name: iOS Signing
+    environment:
+      ios_signing:
+        distribution_type: development
+        bundle_identifier: com.test.app
+    scripts:
+      - name: Done
+        script: echo "Signing done"
