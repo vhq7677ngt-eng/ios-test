@@ -1,9 +1,9 @@
 workflows:
   ios-signing:
-    name: iOS Signing
+    name: IOS Signing
     environment:
       groups:
-        - ios
+        - IOS
     scripts:
       - name: Setup certificate
         script: |
